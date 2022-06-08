@@ -51,20 +51,30 @@ class FinanStatement(Login.setup):
         try:
             try:
                 WebDriverWait(self.driver, 1).until(
-                    EC.presence_of_element_located((By.CLASS_NAME, 'fa fa-angle-double-down'))
+                    EC.presence_of_element_located((By.XPATH, '//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[2]/div[1]/a[1]/i'))
                     ).click()
             except: pass
 
-            select = Select(self.driver.find_element_by_name('period'))
-            select.select_by_value('-1')
+            # select = Select(self.driver.find_element_by_name('period'))
+            # select.select_by_value('-1')
+            WebDriverWait(self.driver, 1).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[1]/select[1]/option[12]'))
+            ).click()
+            
 
-            select = Select(self.driver.find_element_by_name('UnitDong'))
-            select.select_by_value('1000')
+            # select = Select(self.driver.find_element_by_name('UnitDong'))
+            # select.select_by_value('1000')
+            WebDriverWait(self.driver, 1).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[1]/select[3]/option[1]'))
+            ).click()
 
-            select = Select(self.driver.find_element_by_name('PeriodType'))
-            select.select_by_value(PeriodType)
+            # select = Select(self.driver.find_element_by_name('PeriodType'))
+            # select.select_by_value(PeriodType)
+            WebDriverWait(self.driver, 1).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[1]/select[2]/option[1]'))
+            ).click()
 
-            time.sleep(3)
+            time.sleep(2)
             try:
                 element = WebDriverWait(self.driver, 1).until(
                         EC.presence_of_element_located((By.XPATH, '//*[@id="expand-overall-CDKT"]/i'))
