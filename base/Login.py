@@ -11,7 +11,13 @@ class setup():
         self.link = 'https://finance.vietstock.vn/'
         # self.reset_driver('C:\webdrive\Driver\chromedriver.exe')
         self.reset_driver('C:\webdrive\Driver\msedgedriver.exe')
-
+    def reset_colab(self):
+        from selenium import webdriver
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        self.driver = webdriver.Chrome('chromedriver',chrome_options=chrome_options)
     def reset_driver(self, path = 'C:\webdrive\Driver\chromedriver.exe'):
         # self.driver = webdriver.Chrome(executable_path=path)
         self.driver = webdriver.ChromiumEdge(executable_path=path)
