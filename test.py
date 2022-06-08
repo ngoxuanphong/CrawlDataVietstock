@@ -5,9 +5,10 @@ from base import Login as L,FinanStatement as F, ListingInformation as LI, Other
 user = 'iyr60266@xcoxc.com'
 password = 'xuanphong2002'
 # 'D:\VIS\data_lake\test.py'
-path = 'D:/VIS/DataLake/'
+# path = 'D:/VIS/DataLake/'
+path = '/content/drive/MyDrive/Vietstock/DataLake/'
 p1 = f'{path}Phase1/'
-p_summary = f'{path}Summary/'
+p_summary = f'{p1}Summary/'
 py = f'{p_summary}Year/'
 pq = f'{p_summary}Quarter/'
 
@@ -20,21 +21,22 @@ p1q_IncomStatement =f'{pq}IncomStatement/'
 p1q_CashFlows = f'{pq}CashFlows/'
 
 p1_AdditionalListing = f'{p1}AdditionalListing/'
-p1_CashDividend =f'{p1}CashDividend/'
-p1_StockDividend = f'{p1}StockDividend/'
 p1_TreasuryStockTransactions =f'{p1}TreasuryStockTransactions/'
 p1_Company_delisting = f'{p1}Company_delisting/'
+p1_divident = f'{p1}Dividend/'
+p1_CashDividend =f'{p1_divident}CashDividend/'
+p1_StockDividend = f'{p1_divident}StockDividend/'
 
 p1_infor = f'{p1}InforCompany/'
 all_com = list(pd.read_csv('base/Phase1/List_Com_First (1_4) - Sheet1.csv')['Symbol'])
 list_folder=[path, p1, p_summary, py, pq,p1_infor,
             p1q_BalanceSheet, p1q_IncomStatement, p1q_CashFlows,
             p1y_BalanceSheet, p1y_IncomStatement, p1y_CashFlows,
-            p1_AdditionalListing, p1_CashDividend, p1_StockDividend, p1_TreasuryStockTransactions, p1_Company_delisting]
+            p1_divident, p1_CashDividend, p1_StockDividend,
+            p1_AdditionalListing, p1_TreasuryStockTransactions, p1_Company_delisting]
 for folder in list_folder:
     if (os.path.exists(folder) == False) or (os.path.isdir(folder) == False):
         os.mkdir(folder)
-
 
 web = F.FinanStatement()
 web.login(user,password)
@@ -55,7 +57,7 @@ def run1(symbol):
 def run2(symbol):
     web_infor.lst_infor(symbol).to_csv(f'{p1_infor}{symbol}.csv', index=False)
 
-for i in range(476, len(all_com)):
+for i in range(2,3):
     symbol = all_com[i]
     print(symbol)
     web.BalanceSheet(symbol, 'NAM').to_csv(f'{p1y_BalanceSheet}{symbol}.csv', index = False)

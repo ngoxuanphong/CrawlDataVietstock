@@ -34,15 +34,19 @@ class FinanStatement(Login.setup):
             self.getlink(link)
     def table_lake(self, link, PeriodType):
         self.getlink(link)
-        time.sleep(0.5)
-        try:
+        if self.check_page() == True:
             self.click_to_all_year(PeriodType)
             time.sleep(0.5)
             data = self.getTable()
-        except: data =pd.DataFrame()
+        else: data = pd.DataFrame()
         return data
-    # def getTable(self):
 
+    def check_page(self):
+        page_sourse = self.driver.page_source
+        page = BeautifulSoup(page_sourse, "html.parser")
+        check = page.find_all('div', {'class':'container m-b'})
+        if len(check) == 0:
+            return True
     def click_to_all_year(self, PeriodType):
         try:
             try:
@@ -77,5 +81,4 @@ class FinanStatement(Login.setup):
         list_table = page.find_all(
             "table", {"class": "table table-hover"})
         data = pd.read_html(str(list_table))[0]
-        # print(data)
         return data
