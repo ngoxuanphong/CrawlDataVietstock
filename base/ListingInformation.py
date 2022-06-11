@@ -20,7 +20,7 @@ class ListingInformation(Login.setup):
         page = BeautifulSoup(page_source, 'html.parser')
         list_table = page.find_all('table', {'class':'table table-hover'})
         if len(list_table) == 0: 
-            return pd.DataFrame()
+            return pd.DataFrame({'Nothing':[]})
         return pd.read_html(str(list_table))[0]
     def getlink(self, link):
         try:

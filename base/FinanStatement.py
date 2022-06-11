@@ -38,7 +38,7 @@ class FinanStatement(Login.setup):
             self.click_to_all_year(PeriodType)
             time.sleep(0.5)
             data = self.getTable()
-        else: data = pd.DataFrame()
+        else: data = pd.DataFrame({'Nothing':[]})
         return data
 
     def check_page(self):
@@ -49,31 +49,26 @@ class FinanStatement(Login.setup):
             return True
     def click_to_all_year(self, PeriodType):
         try:
-            try:
-                WebDriverWait(self.driver, 1).until(
-                    EC.presence_of_element_located((By.XPATH, '//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[2]/div[1]/a[1]/i'))
-                    ).click()
-            except: pass
+            # try:
+            #     WebDriverWait(self.driver, 1).until(
+            #         EC.presence_of_element_located((By.XPATH, '//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[2]/div[1]/a[1]/i'))
+            #         ).click()
+            # except: pass
 
-            # select = Select(self.driver.find_element_by_name('period'))
-            # select.select_by_value('-1')
-            WebDriverWait(self.driver, 1).until(
-            EC.presence_of_element_located((By.XPATH, '//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[1]/select[1]/option[12]'))
-            ).click()
+            select = Select(self.driver.find_element_by_name('period'))
+            select.select_by_value('-1')
+            time.sleep(0.5)
+            # self.driver.find_element_by_xpath('/html/body/div[1]/div[12]/div/div[5]/div[2]/div[1]/div/div/div[2]/div/div[1]/div[1]/div[2]/div[1]/a[1]/i').click()
+            # self.driver.find_element_by_xpath('//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[1]/select[1]/option[12]').click()
+            # self.driver.find_element_by_xpath('//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[1]/select[3]/option[1]').click()
+            # self.driver.find_element_by_xpath('//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[1]/select[2]/option[1]').click()
+
+            select = Select(self.driver.find_element_by_name('UnitDong'))
+            select.select_by_value('1000')
+            time.sleep(0.5)
             
-
-            # select = Select(self.driver.find_element_by_name('UnitDong'))
-            # select.select_by_value('1000')
-            WebDriverWait(self.driver, 1).until(
-            EC.presence_of_element_located((By.XPATH, '//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[1]/select[3]/option[1]'))
-            ).click()
-
-            # select = Select(self.driver.find_element_by_name('PeriodType'))
-            # select.select_by_value(PeriodType)
-            WebDriverWait(self.driver, 1).until(
-            EC.presence_of_element_located((By.XPATH, '//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[1]/select[2]/option[1]'))
-            ).click()
-
+            select = Select(self.driver.find_element_by_name('PeriodType'))
+            select.select_by_value(PeriodType)
             time.sleep(2)
             try:
                 element = WebDriverWait(self.driver, 1).until(
@@ -90,5 +85,14 @@ class FinanStatement(Login.setup):
         page = BeautifulSoup(page_sourse, "html.parser")
         list_table = page.find_all(
             "table", {"class": "table table-hover"})
-        data = pd.read_html(str(list_table))[0]
+        try:
+            data = pd.read_html(str(list_table))
+            print(len(data))
+            # print(data[0], data[1])
+            try:
+                data = pd.concat([data[0], data[1]])
+            except:
+                data = data[0]
+        except:
+            data = pd.DataFrame({'Nothing':[]})
         return data

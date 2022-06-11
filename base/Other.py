@@ -12,8 +12,7 @@ class Other(Login.setup):
         super().__init__()
     def CashDividend(self, symbol):
         link = f'https://finance.vietstock.vn/lich-su-kien.htm?page=1&tab=1&code={symbol}&group=13'
-        try:data =self.getTable(link)
-        except: data =pd.DataFrame()
+        data =self.getTable(link)
         return data
         # return data
     def StockDividend(self, symbol):
@@ -42,11 +41,11 @@ class Other(Login.setup):
         return data
     def getlink(self, link):
         try:
-            self.driver.implicitly_wait(10)
+            self.driver.set_page_load_timeout(10)
             self.driver.get(link)
         except:
             print('hi')
-            self.driver.navigate().refresh()
+            self.driver.refresh()
             self.getlink(link)
     def getTable(self, link):
         self.getlink(link)
