@@ -41,7 +41,7 @@ class Other(Login.setup):
         return data
     def getlink(self, link):
         try:
-            self.driver.set_page_load_timeout(10)
+            self.driver.set_page_load_timeout(3)
             self.driver.get(link)
         except:
             print('hi')

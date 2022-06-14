@@ -87,7 +87,7 @@ class FinanStatement(Login.setup):
             "table", {"class": "table table-hover"})
         try:
             data = pd.read_html(str(list_table))
-            print(len(data))
+            # print(len(data))
             # print(data[0], data[1])
             try:
                 data = pd.concat([data[0], data[1]])
