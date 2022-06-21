@@ -4,10 +4,10 @@ import pandas as pd
 import json
 import time
 import os
-user = 'iyr60266@xcoxc.com'
+user = 'mfl26068@xcoxc.com'
 password = 'xuanphong2002'
 
-p = 'D:/VIS/DataLake/Phase2/'
+p = 'A:/DataLake/Phase3/'
 ps_finan = f'{p}Financial/'
 ps_y = f'{ps_finan}Year/'
 ps_q = f'{ps_finan}Quarter/'
@@ -30,7 +30,7 @@ p_VolumeAdditionalEvents = f'{p}Volume/VolumeAdditionalEvents/'
 p_VolumeNow = f'{p}Volume/VolumeNow.csv/'
 
 
-all_com = pd.read_excel('base/Phase1/List_Com_Phase2.xlsx')['Symbol']
+all_com = pd.read_excel('base/Phase1/List_Com_Phase3.xlsx')['Symbol']
 all_com = list(all_com)
 list_folder=[p, ps_finan, ps_y, ps_q, 
             ps_y_BS, ps_y_CF, ps_y_IS, 
@@ -41,8 +41,6 @@ for folder in list_folder:
     if (os.path.exists(folder) == False) or (os.path.isdir(folder) == False):
         os.mkdir(folder)
 
-all_com = pd.read_excel('base/Phase1/List_Com_Phase2.xlsx')['Symbol']
-all_com = list(all_com)
 web = F.FinanStatement()
 web.login(user,password)
 # web = LI.ListingInformation()
@@ -68,7 +66,7 @@ def run3(symbol):
     web.CashFlows(symbol, 'QUY').to_csv(f'{ps_q_CF}{symbol}.csv', index = False)
 
 
-for i in range(398, len(all_com)):
+for i in range(187, len(all_com)):
     symbol = all_com[i]
     print(i, symbol)
     # run2(symbol)
