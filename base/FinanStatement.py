@@ -36,7 +36,7 @@ class FinanStatement(Login.setup):
         self.getlink(link)
         if self.check_page() == True:
             self.click_to_all_year(PeriodType)
-            time.sleep(0.5)
+            time.sleep(1)
             data = self.getTable()
         else: data = pd.DataFrame({'Nothing':[]})
         return data
@@ -75,10 +75,12 @@ class FinanStatement(Login.setup):
                         EC.presence_of_element_located((By.XPATH, '//*[@id="expand-overall-CDKT"]/i'))
                     )
                 element.click()
+                time.sleep(2)
                 element.click()
+                time.sleep(0.3)
             except: pass
         finally:
-            time.sleep(2)
+            # time.sleep()
             pass
     def getTable(self):
         page_sourse = self.driver.page_source
