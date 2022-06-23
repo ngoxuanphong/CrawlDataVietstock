@@ -49,27 +49,19 @@ class FinanStatement(Login.setup):
             return True
     def click_to_all_year(self, PeriodType):
         try:
-            # try:
-            #     WebDriverWait(self.driver, 1).until(
-            #         EC.presence_of_element_located((By.XPATH, '//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[2]/div[1]/a[1]/i'))
-            #         ).click()
-            # except: pass
+            try:
+                select = Select(self.driver.find_element_by_name('period'))
+                select.select_by_value('-1')
+                time.sleep(0.5)
 
-            select = Select(self.driver.find_element_by_name('period'))
-            select.select_by_value('-1')
-            time.sleep(0.5)
-            # self.driver.find_element_by_xpath('/html/body/div[1]/div[12]/div/div[5]/div[2]/div[1]/div/div/div[2]/div/div[1]/div[1]/div[2]/div[1]/a[1]/i').click()
-            # self.driver.find_element_by_xpath('//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[1]/select[1]/option[12]').click()
-            # self.driver.find_element_by_xpath('//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[1]/select[3]/option[1]').click()
-            # self.driver.find_element_by_xpath('//*[@id="finance-content"]/div/div/div[2]/div/div[2]/div[1]/div[1]/select[2]/option[1]').click()
-
-            select = Select(self.driver.find_element_by_name('UnitDong'))
-            select.select_by_value('1000')
-            time.sleep(0.5)
-            
-            select = Select(self.driver.find_element_by_name('PeriodType'))
-            select.select_by_value(PeriodType)
-            time.sleep(2)
+                select = Select(self.driver.find_element_by_name('UnitDong'))
+                select.select_by_value('1000')
+                time.sleep(0.5)
+                
+                select = Select(self.driver.find_element_by_name('PeriodType'))
+                select.select_by_value(PeriodType)
+                time.sleep(2)
+            except: pass
             try:
                 element = WebDriverWait(self.driver, 1).until(
                         EC.presence_of_element_located((By.XPATH, '//*[@id="expand-overall-CDKT"]/i'))

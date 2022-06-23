@@ -44,20 +44,17 @@ for folder in list_folder:
         os.mkdir(folder)
 
 web = F.FinanStatement()
-web.login(user,password)
-# web = LI.ListingInformation()
-# web.login(user,password)
 web = O.Other()
-web.login(user,password)
-def run2(symbol):
-    web.lst_infor(symbol).to_csv(f'{p_VolumeNow}{symbol}.csv', index=False)
+# web.login(user,password)
 
 def run1(symbol):
-    # web.CashDividend(symbol).to_csv(f'{p_DividendCash}{symbol}.csv', index=False)
-    # web.StockDividend(symbol).to_csv(f'{p_DividendShares}{symbol}.csv', index=False)
-    # web.AdditionalListing(symbol).to_csv(f'{p_VolumeAdditionalEvents}{symbol}.csv', index=False)
-    # web.TreasuryStockTransactions(symbol).to_csv(f'{p_TreasuryShares}{symbol}.csv', index=False)
+    web.CashDividend(symbol).to_csv(f'{p_DividendCash}{symbol}.csv', index=False)
+    web.StockDividend(symbol).to_csv(f'{p_DividendShares}{symbol}.csv', index=False)
+    web.AdditionalListing(symbol).to_csv(f'{p_VolumeAdditionalEvents}{symbol}.csv', index=False)
+    web.TreasuryStockTransactions(symbol).to_csv(f'{p_TreasuryShares}{symbol}.csv', index=False)
     web.Company_delisting(symbol).to_csv(f'{p_DataDownExchange}{symbol}.csv', index=False)
+    web.lst_infor(symbol).to_csv(f'{p_VolumeNow}{symbol}.csv', index=False)
+
 def run3(symbol):
     web.BalanceSheet(symbol, 'NAM').to_csv(f'{ps_y_BS}{symbol}.csv', index = False)
     web.IncomStatement(symbol, 'NAM').to_csv(f'{ps_y_IS}{symbol}.csv', index = False)
@@ -68,9 +65,10 @@ def run3(symbol):
     web.CashFlows(symbol, 'QUY').to_csv(f'{ps_q_CF}{symbol}.csv', index = False)
 
 
-for i in range(187, len(all_com)):
-    symbol = all_com[i]
-    print(i, symbol)
-    # run2(symbol)
-    run1(symbol)
+# for i in range(486, len(all_com)):
+#     symbol = all_com[i]
+#     print(i, symbol)
+#     run1(symbol)
     # run3(symbol)
+
+# web.CashFlows('LGM', 'QUY').to_csv(f'{ps_q_CF}{symbol}.csv', index = False)

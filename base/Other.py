@@ -49,7 +49,7 @@ class Other(Login.setup):
             self.getlink(link)
     def getTable(self, link):
         self.getlink(link)
-        time.sleep(0.3)
+        time.sleep(1)
         page_source = self.driver.page_source
         page = BeautifulSoup(page_source, 'html.parser')
         number_pages = self.getNumberPage(page)
@@ -67,8 +67,8 @@ class Other(Login.setup):
         # self.driver.get(link.replace('page=1', f'page={number_page}'))
         try:
             WebDriverWait(self.driver, 10).until(
-                EC.presence_of_all_elements_located((By.ID, "btn-page-next"))
-            )[0].click()
+                EC.presence_of_element_located((By.ID, "btn-page-next"))
+            ).click()
         finally: 
             time.sleep(1)
             pass
@@ -87,3 +87,16 @@ class Other(Login.setup):
         except: number_pages = 0
         return int(number_pages)
     # def getNumberPage(self):
+
+    def lst_infor(self, symbol):
+        link = f'https://finance.vietstock.vn/{symbol}/ho-so-doanh-nghiep.htm'
+        self.getlink(link)
+        data = self.getTableInforcom()
+        return data
+    def getTableInforcom(self):
+        page_source = self.driver.page_source
+        page = BeautifulSoup(page_source, 'html.parser')
+        list_table = page.find_all('table', {'class':'table table-hover'})
+        if len(list_table) == 0: 
+            return pd.DataFrame({'Nothing':[]})
+        return pd.read_html(str(list_table))[0]
