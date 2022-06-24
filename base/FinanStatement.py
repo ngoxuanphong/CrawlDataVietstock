@@ -30,7 +30,7 @@ class FinanStatement(Login.setup):
             self.driver.get(link)
         except:
             print('hi')
-            self.driver.refresh()
+            # self.driver.refresh()
             self.getlink(link)
     def table_lake(self, link, PeriodType):
         self.getlink(link)

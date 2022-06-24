@@ -7,7 +7,7 @@ import os
 user = 'mfl26068@xcoxc.com'
 password = 'xuanphong2002'
 
-p = 'A:/DataLake/Phase3/'
+p = 'A:/DataLake/Phase4/'
 ps_finan = f'{p}Financial/'
 ps_y = f'{ps_finan}Year/'
 ps_q = f'{ps_finan}Quarter/'
@@ -31,7 +31,7 @@ p_VolumeNow = f'{p}Volume/VolumeNow.csv/'
 p_DataUpDownExchange = f'{p}DataUpDownExchange/'
 p_DataDownExchange = f'{p}DataUpDownExchange/DataDownExchange/'
 
-all_com = pd.read_excel('base/Phase1/List_Com_Phase3.xlsx')['Symbol']
+all_com = pd.read_excel('base/Phase1/List_Com_Phase4.xlsx')['Symbol']
 all_com = list(all_com)
 list_folder=[p, ps_finan, ps_y, ps_q, 
             ps_y_BS, ps_y_CF, ps_y_IS, 
@@ -44,8 +44,8 @@ for folder in list_folder:
         os.mkdir(folder)
 
 web = F.FinanStatement()
-web = O.Other()
-# web.login(user,password)
+# web = O.Other()
+web.login(user,password)
 
 def run1(symbol):
     web.CashDividend(symbol).to_csv(f'{p_DividendCash}{symbol}.csv', index=False)
@@ -65,10 +65,10 @@ def run3(symbol):
     web.CashFlows(symbol, 'QUY').to_csv(f'{ps_q_CF}{symbol}.csv', index = False)
 
 
-# for i in range(486, len(all_com)):
-#     symbol = all_com[i]
-#     print(i, symbol)
-#     run1(symbol)
-    # run3(symbol)
+for i in range(0, len(all_com)):
+    symbol = all_com[i]
+    print(i, symbol)
+    # run1(symbol)
+    run3(symbol)
 
-# web.CashFlows('LGM', 'QUY').to_csv(f'{ps_q_CF}{symbol}.csv', index = False)
+# web.CashFlows('LGM', 'QUY').to_csv(f'base/Phase1/false/LGM.csv', index = False)
