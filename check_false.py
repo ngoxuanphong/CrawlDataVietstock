@@ -6,7 +6,7 @@ import json
 user = 'mfl26068@xcoxc.com'
 password = 'xuanphong2002'
 
-p = 'A:/DataLake/Phase3/'
+p = 'A:/DataLake/Phase4/'
 ps_finan = f'{p}Financial/'
 ps_y = f'{ps_finan}Year/'
 ps_q = f'{ps_finan}Quarter/'
@@ -31,12 +31,12 @@ p_DataUpDownExchange = f'{p}DataUpDownExchange/'
 p_DataDownExchange = f'{p}DataUpDownExchange/DataDownExchange/'
 
 
-all_com = pd.read_excel('base/Phase1/List_Com_Phase3.xlsx')['Symbol']
+all_com = pd.read_excel('base/Phase1/List_Com_Phase4.xlsx')['Symbol']
 all_com = list(all_com)
 
 
-# web = F.FinanStatement()
-web = O.Other()
+web = F.FinanStatement()
+# web = O.Other()
 web.login(user,password)
 
 def list_col(all_com, path, list_col, list_false):
@@ -71,12 +71,12 @@ def list_col(all_com, path, list_col, list_false):
 
 def run1():
     data_false = json.load(open('false.json'))
-    for symbol in data_false[ps_y_BS]:
-        web.BalanceSheet(symbol, 'NAM').to_csv(f'{ps_y_BS}{symbol}.csv', index = False)
-    for symbol in data_false[ps_y_IS]:
-        web.IncomStatement(symbol, 'NAM').to_csv(f'{ps_y_IS}{symbol}.csv', index = False)
-    for symbol in data_false[ps_y_CF]:
-        web.CashFlows(symbol, 'NAM').to_csv(f'{ps_y_CF}{symbol}.csv', index = False)
+    # for symbol in data_false[ps_y_BS]:
+    #     web.BalanceSheet(symbol, 'NAM').to_csv(f'{ps_y_BS}{symbol}.csv', index = False)
+    # for symbol in data_false[ps_y_IS]:
+    #     web.IncomStatement(symbol, 'NAM').to_csv(f'{ps_y_IS}{symbol}.csv', index = False)
+    # for symbol in data_false[ps_y_CF]:
+    #     web.CashFlows(symbol, 'NAM').to_csv(f'{ps_y_CF}{symbol}.csv', index = False)
 
     for symbol in data_false[ps_q_BS]:
         web.BalanceSheet(symbol, 'QUY').to_csv(f'{ps_q_BS}{symbol}.csv', index = False)
@@ -87,12 +87,12 @@ def run1():
 
 def run2():
     data_false = json.load(open('false2.json'))
-    # for symbol in data_false[p_DividendCash]:
-    #     web.CashDividend(symbol).to_csv(f'{p_DividendCash}{symbol}.csv', index=False)
-    # for symbol in data_false[p_DividendShares]:
-    #     web.StockDividend(symbol).to_csv(f'{p_DividendShares}{symbol}.csv', index=False)
-    # for symbol in data_false[p_TreasuryShares]:
-    #     web.TreasuryStockTransactions(symbol).to_csv(f'{p_TreasuryShares}{symbol}.csv', index=False)
+    for symbol in data_false[p_DividendCash]:
+        web.CashDividend(symbol).to_csv(f'{p_DividendCash}{symbol}.csv', index=False)
+    for symbol in data_false[p_DividendShares]:
+        web.StockDividend(symbol).to_csv(f'{p_DividendShares}{symbol}.csv', index=False)
+    for symbol in data_false[p_TreasuryShares]:
+        web.TreasuryStockTransactions(symbol).to_csv(f'{p_TreasuryShares}{symbol}.csv', index=False)
     for symbol in data_false[p_VolumeAdditionalEvents]:
         web.AdditionalListing(symbol).to_csv(f'{p_VolumeAdditionalEvents}{symbol}.csv', index=False)
     for symbol in data_false[p_VolumeNow]:
@@ -100,4 +100,4 @@ def run2():
     for symbol in data_false[p_DataDownExchange]:
         web.Company_delisting(symbol).to_csv(f'{p_DataDownExchange}{symbol}.csv', index=False)
 
-run2()
+run1()

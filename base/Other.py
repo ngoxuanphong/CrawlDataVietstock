@@ -14,7 +14,10 @@ class Other(Login.setup):
         link = f'https://finance.vietstock.vn/lich-su-kien.htm?page=1&tab=1&code={symbol}&group=13'
         data =self.getTable(link)
         return data
-        # return data
+    def BonusShare(self, symbol):
+        link = f'https://finance.vietstock.vn/lich-su-kien.htm?page=1&tab=1&code={symbol}&group=14'
+        data = self.getTable(link)
+        return data
     def StockDividend(self, symbol):
         link = f'https://finance.vietstock.vn/lich-su-kien.htm?page=1&tab=1&code={symbol}&group=15'
         data = self.getTable(link)
@@ -41,11 +44,11 @@ class Other(Login.setup):
         return data
     def getlink(self, link):
         try:
-            self.driver.set_page_load_timeout(3)
+            self.driver.set_page_load_timeout(10)
             self.driver.get(link)
         except:
             print('hi')
-            self.driver.refresh()
+            # self.driver.refresh()
             self.getlink(link)
     def getTable(self, link):
         self.getlink(link)
