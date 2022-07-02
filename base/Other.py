@@ -45,6 +45,7 @@ class Other(Login.setup):
     def getlink(self, link):
         try:
             self.driver.set_page_load_timeout(10)
+            time.sleep(2)
             self.driver.get(link)
         except:
             print('hi')
@@ -52,7 +53,7 @@ class Other(Login.setup):
             self.getlink(link)
     def getTable(self, link):
         self.getlink(link)
-        time.sleep(1)
+        time.sleep(2)
         page_source = self.driver.page_source
         page = BeautifulSoup(page_source, 'html.parser')
         number_pages = self.getNumberPage(page)

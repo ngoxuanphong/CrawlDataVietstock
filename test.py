@@ -7,7 +7,7 @@ import os
 user = 'mfl26068@xcoxc.com'
 password = 'xuanphong2002'
 
-p = 'A:/DataLake/Phase4/'
+p = 'A:/DataLake/Volume/'
 ps_finan = f'{p}Financial/'
 ps_y = f'{ps_finan}Year/'
 ps_q = f'{ps_finan}Quarter/'
@@ -50,13 +50,13 @@ web = O.Other()
 web.login(user,password)
 
 def run1(symbol):
-    web.CashDividend(symbol).to_csv(f'{p_DividendCash}{symbol}.csv', index=False)
-    web.StockDividend(symbol).to_csv(f'{p_DividendShares}{symbol}.csv', index=False)
+    # web.CashDividend(symbol).to_csv(f'{p_DividendCash}{symbol}.csv', index=False)
+    # web.StockDividend(symbol).to_csv(f'{p_DividendShares}{symbol}.csv', index=False)
     web.AdditionalListing(symbol).to_csv(f'{p_VolumeAdditionalEvents}{symbol}.csv', index=False)
     web.TreasuryStockTransactions(symbol).to_csv(f'{p_TreasuryShares}{symbol}.csv', index=False)
     web.Company_delisting(symbol).to_csv(f'{p_DataDownExchange}{symbol}.csv', index=False)
     web.lst_infor(symbol).to_csv(f'{p_VolumeNow}{symbol}.csv', index=False)
-    web.BonusShare(symbol).to_csv(f'{p_BonusShare}{symbol}.csv', index=False)
+    # web.BonusShare(symbol).to_csv(f'{p_BonusShare}{symbol}.csv', index=False)
 
 def run3(symbol):
     web.BalanceSheet(symbol, 'NAM').to_csv(f'{ps_y_BS}{symbol}.csv', index = False)
@@ -69,7 +69,7 @@ def run3(symbol):
 
 # run1('BCP')
 def multip():
-    pool = multiprocessing.Pool(processes=1)
+    pool = multiprocessing.Pool(processes=4)
     for symbol in all_com:
       pool.apply_async(run1,args=(symbol,))
     pool.close()
